@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import {UserContext} from '../../context/AuthContext'
+import Header from '../../components/Header';
 
 function Dashboard() {
   const {SingOut}= useContext(UserContext)
@@ -10,10 +11,13 @@ function Dashboard() {
 
   return (
     <div>
-      <h1>DashBoard</h1>
-      <button onClick={sair} >Sair</button>
+      <Header/>
+      <h1>euuu</h1>
+      
     </div>
   );
 }
 
 export default Dashboard;
+
+// 

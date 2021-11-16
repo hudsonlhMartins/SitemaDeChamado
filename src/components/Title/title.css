@@ -1,0 +1,13 @@
+.title{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-direction: row;
+    margin: 1.5rem 0;
+    padding: 0.8rem;
+    border-radius: 5px;
+    background: #f8f8f8;
+}
+.title span{
+    font-size: 18px;
+}

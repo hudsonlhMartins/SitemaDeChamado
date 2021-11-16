@@ -10,7 +10,7 @@ export default function RouteWrapper({
 }){
 
     const {singed, loading } = useContext(UserContext)
-
+// esse singed e true se tiver algo no localStorege
     if(loading){
         <div></div>
     }

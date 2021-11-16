@@ -1,0 +1,110 @@
+.header{
+    position: fixed;
+    width: 200px;
+    height: 100%;
+    background-color: #181C2e;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+.content{
+    margin-left: 200px;
+    padding: 1px 16px;
+}
+
+.cover_img{
+    height: 150px;
+    background: url('../../assets/cover.png') ;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cover_img img{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    -webkit-filter: drop-shadow(2px 3px 6px #121212) ;
+    filter: drop-shadow(2px 3px 6px #121212);
+}
+
+.naveBar{
+    margin-top: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.naveBar a{
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 12px;
+    transition: all ease-in-out 0.5s;
+}
+
+.active_menu{
+    background: #121212;
+    border-radius: 5px;
+}
+
+.naveBar a:hover{
+    background: #121212;
+    border-radius: 5px;
+}
+
+.btn_menu{
+    display: none;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+
+
+@media  screen and (max-width: 700px) {
+    .header{
+        display: none;
+        width: 100%;
+    }
+    .btn_menu{
+        display: block;
+    }
+    .header-mobile-active{
+        display: block;
+        position: relative;
+        margin-top: 10px;
+        
+    }
+    .cover_img{
+        display: none;
+    }
+
+    .naveBar{
+        margin-top: 10px;
+        padding: 10px;
+        gap: 20px;
+    }
+    .content{
+        margin-left: 0;
+        margin-top: 3rem;
+        width: 100%;
+    }
+  
+}
+
+@media screen and (max-width: 950px) and (min-width: 701px){
+    .header{
+        width: 200px;
+    }
+    .content{
+        margin-left: 200px;
+        padding: 1px 16px;
+    }
+}

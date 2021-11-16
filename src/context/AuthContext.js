@@ -1,9 +1,12 @@
 import React ,{createContext, useState, useEffect} from 'react'
+
+import { toast } from 'react-toastify';
+
 import { db } from '../services/firebaseConnection'
 import { auth } from '../services/firebaseConnection'
 
-import {createUserWithEmailAndPassword, signOut} from 'firebase/auth'
-import {setDoc, doc} from 'firebase/firestore'
+import {createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword} from 'firebase/auth'
+import {setDoc, doc, getDoc} from 'firebase/firestore'
 import { async } from '@firebase/util'
 
 export const UserContext = createContext({})
@@ -27,6 +30,33 @@ function AuthProvider({children}){
         
     }, [])    
 
+    async function singIn(email, password){
+        setloadingAuth(true)
+        const login = await signInWithEmailAndPassword(auth, email, password).then(async value =>{
+            const dadoId = doc(db, 'users', value.user.uid)
+            
+            const itens =  await getDoc(dadoId).then((item)=>{
+                let data = {
+                    uid: value.user.uid,
+                    email: value.user.email,
+                    nome:  item.data().nome,
+                    avatarUrl: item.data().avatarUrl
+                }
+                console.log(data)
+                setUser(data)
+                addLocacalStorege(data)
+                setloadingAuth(false)
+                toast.success(`Bem Vindo de volta '${item.data().nome}' :) `)
+            })
+            
+        }).catch(error =>{
+            toast.error('Ops!! Deu ruin :(')
+            setloadingAuth(false)
+            console.log(error)
+            
+        })
+    }
+
 
     async function singUp(email, password, nome){
         setloadingAuth(true)
@@ -44,9 +74,12 @@ function AuthProvider({children}){
                 setUser(dado)
                 setloadingAuth(false)
                 addLocacalStorege(dado)
+                toast.success(`Bem Vindo '${nome}' :) `)
+
             })
         }).catch(error =>{
             console.log(error)
+            toast.error('Ops!! Deu ruin :(')
             setloadingAuth(false)
         })
     }
@@ -67,7 +100,9 @@ function AuthProvider({children}){
                 user, 
                 loading,
                 singUp,
-                SingOut
+                SingOut,
+                singIn,
+                loadingAuth
                 }}>
             {children}
         </UserContext.Provider>

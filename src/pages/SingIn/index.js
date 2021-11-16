@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { UserContext } from '../../context/AuthContext'
 import { Link } from 'react-router-dom'
 import './SingIn.css'
 import logo from '../../assets/logo.png'
@@ -7,10 +8,11 @@ function SingIn() {
 
   const [email, setEmail] = useState('')
   const [senha, setSenha] =useState('')
+  const {singIn, loadingAuth} = useContext(UserContext)
 
   const hancleSubmit = (e)=>{
     e.preventDefault()
-    alert('clicou')
+    singIn(email, senha)
   }
 
     return (
@@ -24,7 +26,7 @@ function SingIn() {
             <h2>Login</h2>
             <input className='input-login input_input ' placeholder='Email' type='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
             <input className='input-login input_input ' placeholder='Senha' type='password' value={senha} onChange={(e) => setSenha(e.target.value)} required />
-            <button type='submit' className='input-login btn ' >Acessar</button>
+            <button type='submit' className='input-login btn '>{loadingAuth ? 'Carregando...' : 'Acessar' }</button>
             <Link to='/register' className='btn_registar' >Criar conta</Link>
           </form>
           

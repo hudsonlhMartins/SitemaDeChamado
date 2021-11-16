@@ -8,7 +8,7 @@ function SingUp() {
   const [senha, setSenha] =useState('')
   const [nome, setNome] = useState('')
 
-  const {singUp} = useContext(UserContext)
+  const {singUp, loadingAuth} = useContext(UserContext)
 
   const hancleSubmit = (e)=>{
     e.preventDefault()
@@ -26,7 +26,7 @@ function SingUp() {
             <input className='input-login input_input' type='text' value={nome} onChange={e => setNome(e.target.value)}  placeholder='Nome'  required />
             <input className='input-login input_input ' placeholder='Email' type='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
             <input className='input-login input_input ' placeholder='Senha' type='password' value={senha} onChange={(e) => setSenha(e.target.value)} required />
-            <button type='submit' className='input-login btn ' >Cadastrar</button>
+            <button type='submit' className='input-login btn ' > {loadingAuth ? 'Carregando...' : 'Cadastrar'} </button>
             <Link to='/' className='btn_registar' >Já possuir uma conta!</Link>
           </form>
           
