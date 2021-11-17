@@ -102,7 +102,9 @@ function AuthProvider({children}){
                 singUp,
                 SingOut,
                 singIn,
-                loadingAuth
+                loadingAuth,
+                addLocacalStorege,
+                setUser
                 }}>
             {children}
         </UserContext.Provider>

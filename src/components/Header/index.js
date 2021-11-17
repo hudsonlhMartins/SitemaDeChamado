@@ -10,14 +10,12 @@ export default function Header(){
     const {user} = useContext(UserContext)
 
     const handleMenu = (e)=>{
-        const element = e.target.parentNode
         const header = document.querySelector('.header')
         if(header.classList.contains('header-mobile-active')){
             header.classList.remove('header-mobile-active')
         }else{
             header.classList.add('header-mobile-active')
         }
-        console.log(element)
     }
 
     return(

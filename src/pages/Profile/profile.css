@@ -37,7 +37,6 @@
 .form-profile{
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
 }
 
 .form-profile img{
@@ -83,4 +82,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media screen and (max-width: 500px) and (min-width: 321px){
+    .form-profile img{
+        width: 200px;
+        height: 200px;
+        margin-bottom: 10px
+    }
+    .container{
+        padding: .4rem;
+    }
+    .form-profile input, textarea, selct{
+        padding: .9rem;
+    }
 }
