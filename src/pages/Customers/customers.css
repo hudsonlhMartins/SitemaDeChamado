@@ -1,0 +1,19 @@
+.form-profile.customers label{
+    font-size: 15px;
+    margin-bottom: .7rem;
+    color: #333;
+}
+.form-profile.customers input{
+    width: 350px;
+}
+
+.form-profile.customers input:focus{
+    border: 1px solid #181C2E;
+}
+
+
+@media  screen and (max-width: 380px) {
+    .form-profile.customers input{
+        width: 250px;
+    }
+}

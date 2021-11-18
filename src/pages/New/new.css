@@ -1,0 +1,21 @@
+.newChamado textarea, select{
+    width: 340px;
+}
+.newChamado textarea{
+    height: 99px;
+    resize: none;
+}
+
+input[type='radio']{
+    margin: 10px 0;
+}
+input[type='radio']:not(:first-child){
+    margin-left: 15px;
+}
+
+.status span{
+    margin-left: 8px;
+}
+.status{
+    margin-bottom: 15px;
+}

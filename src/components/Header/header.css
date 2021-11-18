@@ -1,3 +1,17 @@
+
+:root{
+    /* tema claro */
+    --claro-body: #fff;
+    --claro-color: #0000;
+    --claro-container: #f8f8f8 ;
+    --claro-border: #121212 ;
+    /* tema dark */
+    --dark-body: #121212;
+    --dark-color: #fff;
+    --dark-container: #2a2a30;
+    --dark-border: #999 ;
+}
+
 .header{
     position: fixed;
     width: 200px;

@@ -30,11 +30,11 @@ export default function Header(){
                 <img  src={ user.avatarUrl === null ? avatar_default : user.avatarUrl} alt='Foto do usuario' />
             </div>
             <div className='naveBar'>
-                <Link to='/dashboard'>
+                <Link className='chamados' to='/dashboard'>
                     <FiHome  color='#fff' size={24} />
                     Chamados
                 </Link>
-                <Link to='/dashboard'>
+                <Link className='cliente' to='/customers'>
                     <FiUser  color='#fff' size={24} />
                     Clientes
                 </Link>
