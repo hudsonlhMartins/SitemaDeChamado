@@ -81,6 +81,24 @@
 }
 
 
+.btn-sair{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.logout-btn.header{
+    position: absolute;
+    overflow: hidden;
+    top: 90%;
+    height: 35px;
+    width: 80%;
+    background: #333;
+    border: none;
+    color: #999;
+}
+
 
 @media  screen and (max-width: 700px) {
     .header{
@@ -111,6 +129,18 @@
         width: 100%;
     }
   
+    .btn-sair{
+        display: block;
+        margin-left: 16px;
+    }
+
+    .logout-btn.header{
+        width: 25%;
+        margin-top: 20px;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
 }
 
 @media screen and (max-width: 950px) and (min-width: 701px){

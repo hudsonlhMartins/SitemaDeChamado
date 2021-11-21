@@ -4,16 +4,23 @@ import { FiPlus } from 'react-icons/fi'
 import './new.css'
 import { useState, useEffect, useContext } from "react/cjs/react.development"
 import { db } from "../../services/firebaseConnection"
-import {getDocs, collection} from 'firebase/firestore'
+import {getDocs, getDoc, collection, addDoc, doc, updateDoc} from 'firebase/firestore'
 import { UserContext } from "../../context/AuthContext"
+import { useHistory, useParams } from "react-router-dom"
+import { toast } from "react-toastify"
+
+
 export default function New(){
     const {user} = useContext(UserContext)
 
     const [ loading, setLoading] = useState(true)
     const [customers, setCustomers] = useState([])
     const [customersIndex, setCustomersIndex] = useState(0)
+    const [idCustomers, setIdCustomers] = useState(false)
+    const {id} = useParams()
+    const history = useHistory()
 
-    const [assunto, setAssunto] = useState('')
+    const [assunto, setAssunto] = useState('Servico')
     const [status, setStatus] = useState('Aberto')
     const [complemento, setComplemento] = useState('')
 
@@ -27,7 +34,9 @@ export default function New(){
                 dados.forEach((doc)=>{
                     lista.push({
                         id: doc.id,
-                        nomeFantasia: doc.data().nomeFantasia
+                        nomeFantasia: doc.data().nomeFantasia,
+                        cidade: doc.data().cidade,
+                        estado: doc.data().estado
                     })
                 })
                 if(lista.length ===0){
@@ -37,6 +46,11 @@ export default function New(){
                 }
                 setCustomers(lista)
                 setLoading(false)
+
+                if(id){
+                    loadId(lista)  
+                    return 
+                }
             }).catch(err =>{
                 setCustomers(false)
                 setCustomers([{id:1, nomeFantasia: 'Frella'}])
@@ -46,14 +60,82 @@ export default function New(){
         }
         loadingDb()
 
-    })
+    }, [])
 
-    const handleRegister = (e)=>{
-        e.preventDefault()
-        alert('Foi')
+    const loadId = async (lista)=>{
+        const docRef = doc(db, 'chamados' ,id)
+        // esse id e o do elemento do chamado com ele podemos pegar todos item__
+        // dentro dele id do cliente que e so id
+        const pegarItemDB =  await getDoc(docRef).then(snapshot =>{
+            console.log(snapshot.data().status)
+
+            setAssunto(snapshot.data().assunto)
+            setStatus(snapshot.data().status)
+            setComplemento(snapshot.data().complemento)
+
+            let findNome = lista.findIndex(item => item.id === snapshot.data().id)
+            // aqui esta vendo se o id da lista e igual o id do chamando esse id do chamado__
+            // e o mesmo do customer que o da lista. E vai traz o index do item da lista__
+            // com ele podemos pegar o nomeFantasia certo
+
+            setCustomersIndex(findNome)
+            setIdCustomers(true)
+            console.log('entrou')
+        }).catch (err =>{
+            console.log('erro no id passado', err)
+            setIdCustomers(false)
+        })
     }
 
-    const handleAssunto = (e)=>{
+    const handleRegister = async (e)=>{
+        e.preventDefault()
+        const docRef = doc(db, 'chamados', id)
+        if(idCustomers){
+            await updateDoc(docRef, {
+                nome: customers[customersIndex].nomeFantasia,
+                status: status,
+                assunto: assunto,
+                complemento: complemento,
+                uid: user.uid,
+
+            }).then(()=>{
+                toast.success('Editado com sucesso')
+                setCustomersIndex(0)
+                setComplemento('')
+                history.push('/dashboard')
+                setIdCustomers(false)
+            }).catch(err =>{
+                toast.error('Error')
+                setIdCustomers(false)
+            })
+            return
+        }
+
+        const collectionRef = collection(db, 'chamados')
+        await addDoc(collectionRef, {
+            nome: customers[customersIndex].nomeFantasia,
+            created: new Date(),
+            id: customers[customersIndex].id,
+            cidade: customers[customersIndex].cidade,
+            estado: customers[customersIndex].estado,
+            uid: user.uid,
+            status: status,
+            assunto: assunto,
+            complemento: complemento
+        }).then(()=>{
+            toast.success('Chamado salvo com sucesso')
+            setComplemento('')
+            setCustomersIndex(0)
+        }).catch(err =>{
+            toast.error('Error')
+            console.log(err)
+        })
+
+        
+        
+    }
+
+    const handleAssunto = (e) =>{
         setAssunto(e.target.value)
         console.log(e.target.value)
     }
@@ -93,7 +175,7 @@ export default function New(){
 
                         <label>Assunto</label>
                         <select onChange={handleAssunto} >
-                            <option value='layant'>Serviço</option>
+                            <option value='Servico'>Serviço</option>
                             <option value='Financeiro'>Financeiro</option>
                             <option value='Suporte'>Visita de suporte</option>
                         </select>
@@ -125,7 +207,7 @@ export default function New(){
                             onChange={e => setComplemento(e.target.value)}
                         />
                         
-                        <button type='submit'>Registar</button>
+                        <button type='submit'> {idCustomers ? 'Atualizar' : 'Registar'} </button>
                     </form>
                 </div>
             </div>

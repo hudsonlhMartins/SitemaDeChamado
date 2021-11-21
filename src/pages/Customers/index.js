@@ -95,7 +95,7 @@ export default function Customers(){
 
                         <label>CEP</label>
                         <input onBlur={getCep} id='cep' type='text' placeholder='CEP' value={cep} onChange={e => setCep(e.target.value)}
-                            pattern="[\d]{5}-?[\d]{3}" data-tipo='cep'
+                            
                         required />
 
                         

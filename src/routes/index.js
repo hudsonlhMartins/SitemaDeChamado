@@ -16,8 +16,7 @@ export default function Rotas(){
             <Route path='/profile' exact component={Profile} isPrivate={true} />
             <Route path='/customers' exact component={Customers} isPrivate/>
             <Route path='/new' exact component={New} isPrivate/>
-
-
+            <Route path='/new/:id' exact component={New} isPrivate/>
         </Switch>
     )
 }

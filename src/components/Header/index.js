@@ -7,7 +7,7 @@ import avatar_default from '../../assets/avatar.png'
 import './header.css'
 export default function Header(){
 
-    const {user} = useContext(UserContext)
+    const {user, SingOut} = useContext(UserContext)
 
     const handleMenu = (e)=>{
         const header = document.querySelector('.header')
@@ -42,6 +42,12 @@ export default function Header(){
                     <FiSettings  color='#fff' size={24} />
                     Configuração
                 </Link>
+            </div>
+
+            <div className='btn-sair'>
+                <button className="logout-btn header" onClick={ () => {SingOut()} } >
+                    Sair
+              </button>
             </div>
         </div>
 

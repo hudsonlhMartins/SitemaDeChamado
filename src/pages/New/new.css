@@ -19,3 +19,22 @@ input[type='radio']:not(:first-child){
 .status{
     margin-bottom: 15px;
 }
+
+@media screen and (max-width: 375px){
+    .newChamado textarea, select{
+        width: 280px;
+    }
+}
+
+@media screen and (max-width: 356px) and (min-width: 300px){
+    .newChamado textarea, select{
+        width: 240px;
+    }
+    .status{
+        display: flex;
+        align-items: center;
+    }
+    .status span{
+        font-size: 13px;
+    }
+}
