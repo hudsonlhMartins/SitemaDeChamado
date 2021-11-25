@@ -67,7 +67,6 @@ export default function New(){
         // esse id e o do elemento do chamado com ele podemos pegar todos item__
         // dentro dele id do cliente que e so id
         const pegarItemDB =  await getDoc(docRef).then(snapshot =>{
-            console.log(snapshot.data().status)
 
             setAssunto(snapshot.data().assunto)
             setStatus(snapshot.data().status)
@@ -89,8 +88,8 @@ export default function New(){
 
     const handleRegister = async (e)=>{
         e.preventDefault()
-        const docRef = doc(db, 'chamados', id)
         if(idCustomers){
+            const docRef = doc(db, 'chamados', id)
             await updateDoc(docRef, {
                 nome: customers[customersIndex].nomeFantasia,
                 status: status,
@@ -126,18 +125,16 @@ export default function New(){
             toast.success('Chamado salvo com sucesso')
             setComplemento('')
             setCustomersIndex(0)
+            history.push('/dashboard')
         }).catch(err =>{
             toast.error('Error')
             console.log(err)
         })
-
-        
         
     }
 
     const handleAssunto = (e) =>{
         setAssunto(e.target.value)
-        console.log(e.target.value)
     }
 
     const handleStatus = (e)=>{
@@ -146,7 +143,6 @@ export default function New(){
     }
 
     const handleChangedCustomers = (e)=>{
-        console.log(e.target.value)
         setCustomersIndex(e.target.value)
     }
 

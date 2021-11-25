@@ -84,7 +84,6 @@ export default function Profile (){
 
     const updateUser = async (e)=>{
         e.preventDefault()
-        alert('clicou')
         if(avatarImage === null && nome !== ''){
           const dado = doc(db, 'users', user.uid)
           const atualizar = await updateDoc(dado, {nome: nome}).then(()=>{
